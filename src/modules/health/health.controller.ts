@@ -9,7 +9,7 @@ export class HealthController {
     return {
       name: 'Doctor Tracker API',
       status: 'running',
-      docs: 'See the GitHub README for full API reference.',
+      docs: 'GET /api/docs (interactive Swagger UI)',
       endpoints: {
         health: 'GET /api/health',
         login: 'POST /api/auth/login',

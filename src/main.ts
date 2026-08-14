@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import helmet from 'helmet'
 import env, { validateEnv } from './config'
 import { AppModule } from './app.module'
@@ -18,6 +19,20 @@ async function bootstrap() {
 
   // All routes live under /api.
   app.setGlobalPrefix('api')
+
+  // Interactive API docs (Swagger/OpenAPI) at /api/docs.
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Doctor Tracker API')
+    .setDescription(
+      'REST API for the Doctor Tracker admin portal — auth, doctors, patients and dashboard analytics.',
+    )
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build()
+  const document = SwaggerModule.createDocument(app, swaggerConfig)
+  SwaggerModule.setup('api/docs', app, document, {
+    swaggerOptions: { persistAuthorization: true },
+  })
 
   // Global validation: strips unknown props, coerces types, rejects extras.
   app.useGlobalPipes(
