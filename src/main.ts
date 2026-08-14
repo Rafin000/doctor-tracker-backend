@@ -11,7 +11,11 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule)
 
-  app.use(helmet())
+  // CSP is disabled because the app is served over plain HTTP (no TLS): the
+  // default `upgrade-insecure-requests` directive would force asset loads to
+  // HTTPS and break the Swagger UI page. Other helmet protections stay on.
+  // Behind HTTPS, drop this option to re-enable the default CSP.
+  app.use(helmet({ contentSecurityPolicy: false }))
   app.enableCors({
     origin: env.app.clientOrigin,
     credentials: true,
