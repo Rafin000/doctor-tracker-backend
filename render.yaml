@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: doctor-tracker-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      # Set these two in the Render dashboard (secrets / your values):
+      - key: MONGO_URI
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
