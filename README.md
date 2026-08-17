@@ -28,14 +28,14 @@ Secure REST API for the Doctor Tracker admin portal: authentication, doctor & pa
 ## Setup guide
 
 ### Prerequisites
-- Node.js 18+ and npm
+- Node.js 18+ and Yarn
 - A MongoDB connection string — **MongoDB Atlas** free tier (M0) works, or local/Docker Mongo
 
 ### 1. Install
 ```bash
 git clone https://github.com/Rafin000/doctor-tracker-backend.git
 cd doctor-tracker-backend
-npm install
+yarn install
 ```
 
 ### 2. Configure environment
@@ -58,7 +58,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 # CORS: deployed frontend origin(s), comma-separated
 CLIENT_ORIGIN=http://localhost:3000
 
-# Seed admin (used by `npm run seed`)
+# Seed admin (used by `yarn seed`)
 ADMIN_NAME=Admin
 ADMIN_EMAIL=admin@doctortracker.com
 ADMIN_PASSWORD=Admin@1234
@@ -67,15 +67,15 @@ Config is validated at boot (`validateEnv`): the server refuses to start in prod
 
 ### 3. Seed an admin + demo data
 ```bash
-npm run seed
+yarn seed
 ```
 Creates the admin login and (on an empty DB) 8 sample doctors and 45 patients so the dashboard has data.
 
 ### 4. Run
 ```bash
-npm run start:dev     # watch mode
+yarn start:dev     # watch mode
 # or
-npm run build && npm run start:prod
+yarn build && yarn start:prod
 ```
 API is served under the `/api` prefix (e.g. `http://localhost:5000/api/health`).
 
@@ -169,14 +169,14 @@ Dashboard metrics (patients per doctor, patients over time, condition/gender bre
 ## Deployment (Render free tier)
 1. Push this repo to GitHub.
 2. Render → **New Web Service** → connect the repo.
-3. Build command: `npm install && npm run build` — Start command: `npm run start:prod`.
+3. Build command: `yarn install --frozen-lockfile && yarn build` — Start command: `yarn start:prod`.
 4. Add environment variables from `.env.example` (set a strong `JWT_SECRET`, your Atlas `MONGO_URI`, and `CLIENT_ORIGIN` = your deployed frontend URL).
-5. After the first deploy, run the seeder once (Render Shell): `npm run seed`.
+5. After the first deploy, run the seeder once (Render Shell): `yarn seed`.
 
 ## Scripts
 ```bash
-npm run start:dev    # watch mode
-npm run build        # compile to dist/
-npm run start:prod   # run compiled build
-npm run seed         # seed admin + demo data
+yarn start:dev    # watch mode
+yarn build        # compile to dist/
+yarn start:prod   # run compiled build
+yarn seed         # seed admin + demo data
 ```

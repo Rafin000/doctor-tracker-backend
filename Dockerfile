@@ -5,13 +5,13 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Install all deps (incl. dev) for the Nest build.
-COPY package*.json ./
-RUN npm ci
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 # Compile TypeScript -> dist, then drop dev dependencies.
 COPY tsconfig*.json nest-cli.json ./
 COPY src ./src
-RUN npm run build && npm prune --omit=dev
+RUN yarn build && yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
 
 # ---------- Runtime stage ----------
 FROM node:20-alpine AS runtime
