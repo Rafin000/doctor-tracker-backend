@@ -10,8 +10,16 @@ Secure REST API for the Doctor Tracker admin portal: authentication, doctor & pa
 
 | | URL |
 |---|---|
-| Base URL | `https://<your-render-app>.onrender.com/api` |
-| Health check | `GET /api/health` |
+| Base URL | http://doctortracker.16.171.174.104.nip.io/api |
+| Health check | http://doctortracker.16.171.174.104.nip.io/api/health |
+| Interactive docs (Swagger) | http://doctortracker.16.171.174.104.nip.io/api/docs |
+| Frontend app | http://doctortracker.16.171.174.104.nip.io |
+| Frontend repo | https://github.com/Rafin000/doctor-tracker-frontend |
+
+> Deployed with Docker on a Linux VPS behind an nginx reverse proxy (the spec
+> allows "your own paid hosting/VPS"). Served over plain HTTP.
+
+**Demo login:** `admin@doctortracker.com` / `Admin@1234`
 
 ---
 
